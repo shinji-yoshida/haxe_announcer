@@ -30,8 +30,9 @@ class Announcer<T>
     proxy = Type.createEmptyInstance(cls);
 
     for(name in listenerMethodNames(cls)){
-      var announceFunction = Reflect.makeVarArgs(new AnnounceFunction(listeners, name).announce);
-      Reflect.setField(proxy, name, announceFunction);
+      var announceFunction = new AnnounceFunction(listeners, name);
+      var announce = Reflect.makeVarArgs(announceFunction.announce);
+      Reflect.setField(proxy, name, announce);
       announceFunctions.push(announceFunction);
     }
   }
@@ -50,7 +51,7 @@ class Announcer<T>
   public function announce():T{
     return proxy;
   }
-  
+
   public function addListener(listener:T):Void
   {
     listeners.push(listener);
