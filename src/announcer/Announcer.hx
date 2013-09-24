@@ -60,4 +60,8 @@ class Announcer<T>
   public function removeListener(listener:T):Void{
     listeners.remove(listener);
   }
+
+  public function size():Int{
+    return listeners.length;
+  }
 }
